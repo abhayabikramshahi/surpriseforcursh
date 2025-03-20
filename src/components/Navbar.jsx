@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="bg-white p-4 shadow-md">
+    <nav className="bg-white/30 backdrop-blur-md p-4 sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-gray-900 text-2xl font-extrabold">My App</h1>
-        <div className="space-x-6">
-          <Link to="/" className="text-gray-900 hover:text-gray-600 transition duration-300">
+        {/* Logo */}
+        <h1 className="text-gray-900 text-3xl font-extrabold tracking-wide">Surpisee</h1>
+        
+        {/* Hamburger Button */}
+        <button 
+          className="md:hidden text-gray-900 focus:outline-none"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+
+        {/* Nav Links */}
+        <div className={`md:flex md:items-center absolute md:static top-16 left-0 w-full md:w-auto bg-white/50 backdrop-blur-lg shadow-md md:shadow-none p-5 md:p-0 transition-all duration-300 ease-in-out ${isOpen ? "block" : "hidden"}`}>
+          <Link to="/" className="block md:inline-block text-gray-900 font-medium hover:text-gray-600 transition duration-300 px-4 py-2">
             Home
           </Link>
-          <Link to="/response" className="text-gray-900 hover:text-gray-600 transition duration-300">
-            Response
-          </Link>
-          <Link to="/about" className="text-gray-900 hover:text-gray-600 transition duration-300">
+          <Link to="/about" className="block md:inline-block text-gray-900 font-medium hover:text-gray-600 transition duration-300 px-4 py-2">
             About
           </Link>
         </div>
